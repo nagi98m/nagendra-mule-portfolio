@@ -1,0 +1,42 @@
+[
+  {
+    "id": "tag-overview",
+    "label": "TAG",
+    "section": "Overview",
+    "url": "/projects/tag-ai-platform",
+    "text": "Test Automation Generator, or TAG, is Nagendra's flagship Generative AI project: an enterprise platform that ingests requirements from Jira, VersionOne, Excel, BRD, FRD, and SRS documents, then produces validated, enriched, and automation-ready QA artifacts through orchestrated AI workflows.",
+    "metadata": { "category": "project", "project": "TAG" }
+  },
+  {
+    "id": "tag-architecture",
+    "label": "TAG",
+    "section": "Architecture",
+    "url": "/projects/tag-ai-platform",
+    "text": "TAG uses asynchronous FastAPI services, LangChain, and a stateful LangGraph workflow for requirement validation, enhancement, planning, test-case generation, and Selenium script generation. PostgreSQL and Async SQLAlchemy store versioned artifacts, while WebSockets stream real-time workflow progress.",
+    "metadata": { "category": "architecture", "project": "TAG" }
+  },
+  {
+    "id": "tag-rag-agentic",
+    "label": "TAG",
+    "section": "Agentic AI",
+    "url": "/projects/tag-ai-platform",
+    "text": "Nagendra's LangGraph experience includes modeling multi-stage AI work as explicit workflow state with validation, enrichment, planning, test generation, automation generation, checkpoints, and human-review boundaries. His broader Generative AI skill set includes RAG, LangChain, OpenAI, Azure OpenAI, Groq, Hugging Face, and prompt engineering.",
+    "metadata": { "category": "generative-ai", "project": "TAG" }
+  },
+  {
+    "id": "ivacs-overview",
+    "label": "IVACS",
+    "section": "Architecture",
+    "url": "/projects/ivacs",
+    "text": "IVACS is an enterprise voice automation platform for appointment scheduling, customer verification, IVR routing, and customer workflows. It connects Amazon Connect and Lex to AWS Lambda and FastAPI business services, RDS and enterprise systems, with CloudWatch, S3, Athena, Glue, and Comprehend for monitoring and analytics.",
+    "metadata": { "category": "project", "project": "IVACS" }
+  },
+  {
+    "id": "ecommerce-overview",
+    "label": "E-Commerce",
+    "section": "Cloud Platform",
+    "url": "/projects/ecommerce-cloud-platform",
+    "text": "Nagendra built e-commerce APIs and automation integrating Shopify, Django REST Framework, Flask, SQLAlchemy, Selenium, and Scrapy. He containerized services and supported GCP migration using Cloud Run, App Engine, Cloud SQL, BigQuery, Cloud Storage, and Pub/Sub.",
+    "metadata": { "category": "project", "project": "E-Commerce" }
+  }
+]

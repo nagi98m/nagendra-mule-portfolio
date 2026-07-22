@@ -1,0 +1,34 @@
+[
+  {
+    "id": "experience-staidlogic",
+    "label": "Experience",
+    "section": "StaidLogic",
+    "url": "/#experience",
+    "text": "Nagendra has worked as a Python and GenAI Engineer at StaidLogic LLC from October 2023 to the present. He builds enterprise AI platforms with Python, FastAPI, LangChain, LangGraph, AWS, PostgreSQL, Async SQLAlchemy, REST APIs, WebSockets, and serverless services. He implemented Microsoft SSO, OAuth2, JWT, RBAC, monitoring, and analytics patterns.",
+    "metadata": { "category": "experience", "company": "StaidLogic LLC" }
+  },
+  {
+    "id": "experience-signovate",
+    "label": "Experience",
+    "section": "Signovate",
+    "url": "/#experience",
+    "text": "Nagendra worked as a Python Developer at Signovate Technologies from November 2021 to October 2023. He built Python backends with Django REST Framework, Flask, REST APIs, SQLAlchemy, and MySQL; delivered GCP services with Cloud Run, App Engine, Cloud SQL, BigQuery, and Docker; and developed Selenium and Scrapy automation.",
+    "metadata": { "category": "experience", "company": "Signovate Technologies" }
+  },
+  {
+    "id": "impact-qa",
+    "label": "Experience",
+    "section": "Selected Impact",
+    "url": "/#projects",
+    "text": "Nagendra's AI-driven requirement and test automation workflows reduced manual QA effort by approximately 60 percent. This is the only quantitative project impact presented in the approved portfolio.",
+    "metadata": { "category": "achievement", "metric": "60%" }
+  },
+  {
+    "id": "security-experience",
+    "label": "Portfolio",
+    "section": "Enterprise Security",
+    "url": "/#experience",
+    "text": "Nagendra has implemented enterprise authentication and authorization using Microsoft SSO, OAuth2, JWT, and role-based access control, along with AWS Secrets Manager for secure credential handling.",
+    "metadata": { "category": "security" }
+  }
+]
