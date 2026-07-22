@@ -2,6 +2,8 @@
 
 A recruiter-focused portfolio that demonstrates Python backend, Generative AI, RAG, cloud architecture, and enterprise delivery through detailed case studies and a live, cited AI Resume Assistant.
 
+Repository: `https://github.com/nagi98m/nagendra-mule-portfolio`
+
 ## Architecture
 
 ```text

@@ -36,7 +36,7 @@ See `DEPENDENCY_SECURITY.md` for the exact advisory record.
 
 ## Backend Deployment
 
-- [ ] Create or attach an appropriate source repository/remote, or configure an approved provider upload workflow
+- [x] Public GitHub repository created and `origin` attached as `https://github.com/nagi98m/nagendra-mule-portfolio.git`
 - [ ] Select and authenticate a Docker-capable Python hosting provider
 - [ ] Build the backend image in a Docker-capable environment; Docker CLI is unavailable on the audited workstation
 - [ ] Deploy FastAPI with `PORT` supplied by the platform

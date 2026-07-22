@@ -1,7 +1,7 @@
 # Release Status
 
 - **Version:** Portfolio V1
-- **GitHub:** Not published
+- **GitHub:** `https://github.com/nagi98m/nagendra-mule-portfolio`
 - **Frontend:** Not deployed
 - **Backend:** Not deployed
 - **Resume:** Missing
