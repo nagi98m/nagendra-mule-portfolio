@@ -1,9 +1,14 @@
-import { copyFile, mkdir } from "node:fs/promises";
+import { copyFile, mkdir, rename, rm } from "node:fs/promises";
 import { resolve } from "node:path";
 
 const projectRoot = resolve(import.meta.dirname, "..");
 const outputDir = resolve(projectRoot, "dist");
+const stagingDir = resolve(projectRoot, ".sites-static-output");
 
+await rm(stagingDir, { force: true, recursive: true });
+await rename(outputDir, stagingDir);
+await mkdir(outputDir, { recursive: true });
+await rename(stagingDir, resolve(outputDir, "client"));
 await mkdir(resolve(outputDir, "server"), { recursive: true });
 await mkdir(resolve(outputDir, ".openai"), { recursive: true });
 

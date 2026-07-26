@@ -13,7 +13,7 @@ services:
     autoDeployTrigger: checksPass
     envVars:
       - key: ALLOWED_ORIGINS
-        value: http://localhost:3000
+        value: https://nagendra-mule-ai-engineer-portfolio.nagendra-nani.chatgpt.site
       - key: LLM_MODEL
         value: gpt-5-nano
       - key: LLM_BASE_URL
