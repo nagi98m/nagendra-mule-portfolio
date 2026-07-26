@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: nagendra-mule-portfolio-api
+    runtime: docker
+    plan: free
+    region: singapore
+    repo: https://github.com/nagi98m/nagendra-mule-portfolio
+    branch: main
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeployTrigger: checksPass
+    envVars:
+      - key: ALLOWED_ORIGINS
+        value: https://nagendra-mule-ai-engineer-portfolio.nagendra-nani.chatgpt.site
+      - key: LLM_MODEL
+        value: gpt-5-nano
+      - key: LLM_BASE_URL
+        value: https://api.openai.com/v1
+      - key: LLM_AUTH_HEADER
+        value: Authorization
+      - key: RETRIEVAL_TOP_K
+        value: "4"
+      - key: CHAT_RATE_LIMIT
+        value: "12"
+      - key: CHAT_RATE_WINDOW_SECONDS
+        value: "60"
+      - key: LOG_LEVEL
+        value: INFO
