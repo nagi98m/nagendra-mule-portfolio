@@ -21,14 +21,33 @@ try {
   assert.equal(await page.locator('a[href="https://github.com/nagi98m"]').count() > 0, true, "Verified GitHub link is missing");
   const linkedinLinks = page.locator('a[href*="linkedin.com"]');
   if (await linkedinLinks.count()) assert.match(await linkedinLinks.first().getAttribute("href"), /^https:\/\/[^\s]+$/, "Configured LinkedIn URL is invalid");
-  const resumeLinks = page.locator('a[download][href$="Nagendra-Mule-Python-GenAI-Engineer-Resume.pdf"]');
+  const resumeLinks = page.getByRole("link", { name: "Download Nagendra Mule's resume PDF" });
   if (await resumeLinks.count()) {
     await assertVisible(resumeLinks.first());
   } else {
-    assert.equal(await page.getByText("Resume coming soon").count() > 0, true, "Missing-resume state is not visible");
+    assert.equal(await page.getByText(/coming soon/i).count(), 0, "Incomplete resume messaging must stay hidden from recruiters");
   }
-  await assertVisible(page.getByRole("heading", { name: "The profile in 20 seconds." }));
-  await assertVisible(page.getByRole("link", { name: /Flagship project/i }));
+  await assertVisible(page.getByRole("heading", { name: "Nagendra Mule", exact: true }));
+  await assertVisible(page.getByRole("img", { name: /Abstract AI backend architecture/i }));
+  await assertVisible(page.locator(".hero-profile").getByText("4.9+ years", { exact: true }));
+  await assertVisible(page.getByRole("heading", { name: "Engineering proof in 20 seconds." }));
+  await page.locator("#experience").scrollIntoViewIfNeeded();
+  await assertVisible(page.getByText(/Built NexusAI Hybrid RAG/i));
+  await assertVisible(page.getByText(/121 automated backend tests/i));
+  await page.goto(baseUrl, { waitUntil: "networkidle" });
+  const flagshipLink = page.getByRole("link", { name: /Flagship project/i });
+  await assertVisible(flagshipLink);
+  assert.equal(await flagshipLink.getAttribute("href"), "/projects/nexusai-enterprise-copilot");
+  await page.screenshot({ path: `${outputDir}/desktop-home.png`, fullPage: false });
+  await page.locator(".quick-view-card").scrollIntoViewIfNeeded();
+  await page.waitForTimeout(500);
+  await page.locator(".quick-view-card").screenshot({ path: `${outputDir}/recruiter-proof.png` });
+  await page.locator("#skills").scrollIntoViewIfNeeded();
+  await assertVisible(page.getByRole("heading", { name: "From request to reliable AI outcome" }));
+  await page.reload({ waitUntil: "networkidle" });
+  await page.waitForTimeout(100);
+  assert.ok(await page.evaluate(() => window.scrollY < 5), "Reload should return the portfolio to the starting screen");
+  await assertVisible(page.getByRole("heading", { name: /Python backend meets production AI/i }));
   const directEmail = page.locator('a[href^="mailto:"]');
   assert.equal(await page.locator('.quick-actions a[href="#contact"]').count() > 0, (await directEmail.count()) > 0, "Quick contact action does not match public-email configuration");
 
@@ -73,7 +92,15 @@ try {
   errors.splice(0, errors.length);
   await page.getByRole("button", { name: "Close AI resume assistant" }).click();
 
+  await page.goto(`${baseUrl}/resume-admin`, { waitUntil: "networkidle" });
+  await assertVisible(page.getByRole("heading", { name: "Resume manager" }));
+  await assertVisible(page.getByLabel("Resume PDF"));
+  await assertVisible(page.getByLabel("Resume DOCX"));
+  await assertVisible(page.getByLabel("Private administration token"));
+  await page.screenshot({ path: `${outputDir}/desktop-resume-admin.png`, fullPage: true });
+
   for (const [slug, heading] of [
+    ["nexusai-enterprise-copilot", "NexusAI"],
     ["tag-ai-platform", "Test Automation Generator (TAG)"],
     ["ivacs", "IVACS"],
     ["ecommerce-cloud-platform", "E-Commerce Automation & Cloud Migration Platform"],
@@ -83,19 +110,28 @@ try {
     await assertVisible(page.getByRole("heading", { name: heading, exact: true }));
   }
 
-  assert.deepEqual(errors, [], `Browser console errors before the expected contact fallback: ${errors.join(" | ")}`);
+  assert.deepEqual(errors, [], `Browser console errors: ${errors.join(" | ")}`);
   await page.goto(`${baseUrl}/#contact`, { waitUntil: "networkidle" });
-  assert.equal(await page.locator(".contact-form").evaluate((form) => form.checkValidity()), false, "Empty contact form should be invalid");
-  await page.getByLabel("Name", { exact: true }).fill("Local Recruiter Test");
-  await page.getByLabel("Email", { exact: true }).fill("recruiter@example.com");
-  await page.getByLabel("Message", { exact: true }).fill("This is a local end-to-end test of the portfolio contact workflow.");
-  await page.getByRole("button", { name: "Send message" }).click();
-  await page.locator("#form-status").filter({ hasText: "Email delivery is not configured" }).waitFor({ timeout: 10_000 });
+  await assertVisible(page.getByRole("heading", { name: "Open to the right engineering opportunity." }));
+  assert.equal(await page.locator(".contact-form").count(), 0, "Unconfigured contact form should not be public");
+  await assertVisible(page.getByRole("link", { name: "GitHub profile" }));
   await page.screenshot({ path: `${outputDir}/desktop-contact.png` });
 
-  const unexpectedErrors = errors.filter((message) => !message.includes("503 (Service Unavailable)"));
-  assert.deepEqual(unexpectedErrors, [], `Unexpected browser console errors: ${unexpectedErrors.join(" | ")}`);
+  assert.deepEqual(errors, [], `Unexpected browser console errors: ${errors.join(" | ")}`);
   await desktop.close();
+
+  const wide = await browser.newContext({ viewport: { width: 1920, height: 900 } });
+  const widePage = await wide.newPage();
+  await widePage.goto(baseUrl, { waitUntil: "networkidle" });
+  await widePage.waitForTimeout(350);
+  const navbarBox = await widePage.locator(".navbar").boundingBox();
+  const heroCopyBox = await widePage.locator(".hero-copy").boundingBox();
+  const heroProfileBox = await widePage.locator(".hero-profile").boundingBox();
+  assert.ok(navbarBox && heroCopyBox && heroProfileBox, "Wide-screen hero geometry is unavailable");
+  assert.ok(heroCopyBox.y - (navbarBox.y + navbarBox.height) <= 65, "Wide-screen gap between navigation and hero is too large");
+  assert.ok(Math.abs(heroCopyBox.y - heroProfileBox.y) <= 2, "Hero copy and profile card are not top-aligned");
+  await widePage.screenshot({ path: `${outputDir}/wide-home.png`, fullPage: false });
+  await wide.close();
 
   for (const width of [320, 375, 390, 768]) {
     const mobile = await browser.newContext({ viewport: { width, height: width === 768 ? 1024 : 812 }, hasTouch: true });
@@ -116,7 +152,7 @@ try {
       const dialogBox = await mobilePage.getByRole("dialog", { name: "Ask My AI Resume" }).boundingBox();
       assert.ok(dialogBox && dialogBox.width <= width && dialogBox.height <= 812, "Mobile AI dialog exceeds the viewport");
       await mobilePage.getByRole("button", { name: "Close AI resume assistant" }).click();
-      await mobilePage.goto(`${baseUrl}/projects/tag-ai-platform`, { waitUntil: "networkidle" });
+      await mobilePage.goto(`${baseUrl}/projects/nexusai-enterprise-copilot`, { waitUntil: "networkidle" });
       await assertNoPageOverflow(mobilePage, width);
       await mobilePage.goto(baseUrl, { waitUntil: "networkidle" });
       await mobilePage.getByRole("button", { name: "Open navigation" }).click();
@@ -126,7 +162,7 @@ try {
     await mobile.close();
   }
 
-  console.log("E2E PASS: home, responsive navigation, recruiter view, chat, citations, case studies, contact fallback, verified/hidden profile links");
+  console.log("E2E PASS: clean recruiter home, responsive navigation, resume manager, chat, citations, case studies, contact links, verified/hidden profile links");
 } finally {
   await browser.close();
 }

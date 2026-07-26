@@ -4,7 +4,7 @@
     "label": "Experience",
     "section": "StaidLogic",
     "url": "/#experience",
-    "text": "Nagendra has worked as a Python and GenAI Engineer at StaidLogic LLC from October 2023 to the present. He builds enterprise AI platforms with Python, FastAPI, LangChain, LangGraph, AWS, PostgreSQL, Async SQLAlchemy, REST APIs, WebSockets, and serverless services. He implemented Microsoft SSO, OAuth2, JWT, RBAC, monitoring, and analytics patterns.",
+    "text": "Nagendra has worked as a Python and GenAI Engineer at StaidLogic LLC from October 2023 to the present. His current work includes NexusAI, a secure enterprise knowledge and operations platform with ChromaDB and BM25 Hybrid RAG, reranking, OCR, verified citations, multi-format ingestion, LangGraph supervisor agents, human-approved MCP execution, JWT and Argon2 authentication, multi-tenant RBAC, source ACLs, prompt-injection detection, PII redaction, audit logging, Prometheus, and Grafana. He validated critical NexusAI workflows with 121 automated backend tests and Playwright smoke tests. He also engineered the TAG requirement-to-automation platform using FastAPI, LangChain, LangGraph, PostgreSQL, Async SQLAlchemy, and WebSockets, reducing manual QA effort by approximately 60%.",
     "metadata": { "category": "experience", "company": "StaidLogic LLC" }
   },
   {

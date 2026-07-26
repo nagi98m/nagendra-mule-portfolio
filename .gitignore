@@ -19,6 +19,7 @@ backend/.venv/
 /coverage
 /test-results/
 /dist/
+/backend/storage/
 
 # next.js
 /.next/

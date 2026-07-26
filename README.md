@@ -10,7 +10,6 @@ Repository: `https://github.com/nagi98m/nagendra-mule-portfolio`
 Next.js Portfolio
 ├── Project Case Studies
 ├── Recruiter Quick View
-├── AI Engineering Lab
 └── AI Resume Chat
           │
           ▼
@@ -92,7 +91,7 @@ Swagger documentation: `http://localhost:8000/docs`
 Backend environment variables:
 
 - `LLM_API_KEY`: provider secret; leave blank for local extractive mode
-- `LLM_MODEL`: model identifier required when a key is supplied
+- `LLM_MODEL`: model identifier required when a key is supplied; the example is configured for `gpt-5-nano`
 - `LLM_BASE_URL`: OpenAI-compatible API base URL
 - `LLM_AUTH_HEADER`: `Authorization` for OpenAI/Groq-compatible APIs or a provider-specific header such as `api-key`
 - `ALLOWED_ORIGINS`: comma-separated exact frontend origins; wildcard `*` is rejected
@@ -135,6 +134,15 @@ cd backend
 
 Tests cover health reporting, Pydantic limits, FAISS retrieval, source metadata, unsupported questions, prompt-injection handling, and upstream provider failures. Tests never invoke a paid model.
 
+The committed 12-case retrieval evaluation measures hit rate at four, mean reciprocal rank, and rejection of unsupported questions without invoking a paid model:
+
+```powershell
+cd backend
+.\.venv\Scripts\python.exe -m app.evaluation --check
+```
+
+Every API response includes an `X-Request-ID`. Server logs are structured JSON with method, path, status, and duration while deliberately excluding chat and resume content. GitHub Actions runs frontend lint/type/build plus backend tests and the retrieval quality gate on pushes and pull requests.
+
 With the production frontend running on port 3000 and FastAPI on port 8000, run the real-browser suite:
 
 ```powershell
@@ -149,9 +157,12 @@ All public profile configuration lives in `src/config/profile.ts` and can use th
 
 ### Resume
 
-1. Add the approved PDF as `public/resume/Nagendra-Mule-Python-GenAI-Engineer-Resume.pdf`.
-2. Set `resumeUrl` in `src/config/profile.ts` to `/resume/Nagendra-Mule-Python-GenAI-Engineer-Resume.pdf`.
-3. Rebuild and run E2E tests. Resume actions automatically switch from the disabled state to real download links and emit `resume_download`.
+1. Set a long random `RESUME_ADMIN_TOKEN` only in `backend/.env`, set the server-only `ENABLE_RESUME_ADMIN=true` in local `.env.local`, and restart both applications.
+2. Open `http://localhost:3000/resume-admin`, select an approved PDF, DOCX, or both, and enter that private token.
+3. Review the in-browser PDF preview before submitting. Successful upload stores fixed safe filenames under ignored `backend/storage/resume`, extracts the text, and refreshes the live FAISS/RAG index.
+4. Public resume actions remain hidden until an approved file exists, then automatically show **View resume**, **PDF**, and **DOCX** actions for the formats available.
+
+The administration token is never a `NEXT_PUBLIC_` value and the page does not persist it. Keep `ENABLE_RESUME_ADMIN` false or undefined in production so the private screen returns 404. Production deployments must mount durable storage or replace the local store with private object storage; ephemeral container files will not survive a redeploy.
 
 ### LinkedIn and public email
 
@@ -162,9 +173,9 @@ All public profile configuration lives in `src/config/profile.ts` and can use th
 
 Add verified credential URLs to the matching entries in `src/config/profile.ts`. A `Verify credential` action renders only for a non-null URL; no placeholder IDs or broken buttons are shown.
 
-### Contact delivery
+### Contact
 
-The contact route validates input, applies a honeypot and a basic rate limit, and currently returns an honest unavailable response. No email-provider variables are advertised because delivery is not implemented. A future provider must be integrated and tested server-side in `src/app/api/contact/route.ts` before its secret variables are documented or configured.
+Only configured, verified public contact methods are rendered. The portfolio does not expose a non-working contact form or placeholder email address.
 
 ## Docker
 
@@ -199,10 +210,6 @@ Browser -> Production Next.js frontend -> HTTPS FastAPI backend
 
 Both production origins must use HTTPS. An HTTPS frontend configured with an HTTP backend will be blocked as mixed content and is not a valid deployment.
 
-## GitHub project showcase
-
-AI Engineering Lab entries live in `src/data/portfolio.ts` and support repository name, description, stack, GitHub URL, demo URL, status, and featured state. Keep URLs `null` and status `Planned` or `Building` until real public repositories exist.
-
 ## Privacy and security
 
 - The assistant answers only from the approved knowledge directory.
@@ -223,14 +230,11 @@ Run `npm audit --omit=dev` before each release. Current findings and the rejecte
 - Four AWS credential verification URLs
 - Final production domain
 - Production backend URL
-- Contact email-provider integration
-- Real GitHub repository and demo URLs for planned lab projects
 
 ## Troubleshooting
 
 - **Chat says unavailable:** confirm FastAPI is running and `NEXT_PUBLIC_API_URL` matches its origin.
 - **Browser reports a CORS error:** add the exact frontend origin, including scheme and port, to `ALLOWED_ORIGINS`, then restart FastAPI.
 - **Chat answers locally without an LLM key:** this is expected; `local-extractive` mode remains grounded and cited.
-- **Resume remains disabled:** verify the exact filename and `resumeUrl` configuration.
-- **Contact returns 503:** expected until a real email provider is implemented; delivery is never simulated.
+- **Resume actions remain hidden:** upload the approved PDF/DOCX through `/resume-admin` and verify `/api/resume` reports the available formats.
 - **Chrome E2E cannot launch:** set `BROWSER_PATH` to the installed Chrome or Chromium executable.

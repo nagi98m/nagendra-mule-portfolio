@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { AIResumeLoader } from "@/components/ai/ai-resume-loader";
@@ -33,7 +34,7 @@ const structuredData = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body><a className="skip-link" href="#main-content">Skip to content</a><Navbar resumeUrl={portfolio.resumeUrl} /><div id="main-content">{children}</div><Footer /><AIResumeLoader /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} /></body>
+      <body><a className="skip-link" href="#main-content">Skip to content</a><Navbar resumeUrl={portfolio.resumeUrl} /><div id="main-content">{children}</div><Footer /><AIResumeLoader /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} /><Script id="reset-scroll-on-reload" strategy="beforeInteractive">{`try{history.scrollRestoration="manual";const n=performance.getEntriesByType("navigation")[0];if(n&&n.type==="reload"){if(location.hash)history.replaceState(null,"",location.pathname+location.search);scrollTo(0,0);addEventListener("DOMContentLoaded",()=>scrollTo(0,0),{once:true})}}catch{}`}</Script></body>
     </html>
   );
 }

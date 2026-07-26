@@ -32,6 +32,11 @@ export type Project = {
   github: string | null;
   demo: string | null;
   accent: "cyan" | "violet" | "amber";
+  featured?: boolean;
+  headlineMetric?: {
+    value: string;
+    label: string;
+  };
 };
 
 export type SkillGroup = {

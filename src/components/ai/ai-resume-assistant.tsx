@@ -16,12 +16,14 @@ const suggestions = [
   "Tell me about his best GenAI project.",
   "What backend architecture experience does he have?",
   "Summarize Nagendra in 30 seconds.",
+  "How would Nagendra design a production RAG system?",
+  "How would he troubleshoot a slow FastAPI service?",
 ];
 
 const welcome: Message = {
   id: "welcome",
   role: "assistant",
-  content: "Ask about my Python, FastAPI, GenAI, LangGraph, RAG, cloud experience, projects, or certifications. Answers are grounded in my approved portfolio knowledge.",
+  content: "Ask about my resume, Python, FastAPI, GenAI, LangGraph, RAG, cloud experience, projects, role fit, or realistic engineering scenarios. Facts stay grounded in approved resume and portfolio sources; hypothetical recommendations are clearly labeled.",
 };
 
 export function AIResumeAssistant() {

@@ -1,11 +1,7 @@
-# Resume asset
+# Resume assets
 
-Place the approved resume here as:
+Resume files are managed through the private `/resume-admin` page and the FastAPI backend.
 
-`Nagendra-Mule-Python-GenAI-Engineer-Resume.pdf`
+The backend validates PDF/DOCX uploads, stores them under fixed safe filenames, extracts approved text, and refreshes the live RAG index. Public buttons automatically expose PDF preview and the available download formats.
 
-Then set `resumeUrl` in `src/config/profile.ts` to:
-
-`/resume/Nagendra-Mule-Python-GenAI-Engineer-Resume.pdf`
-
-Until that file exists, the interface intentionally shows “Resume coming soon” and does not create a broken link.
+This directory remains available only for a manually managed static PDF fallback through `profileConfig.resumeUrl`.

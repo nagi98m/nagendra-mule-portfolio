@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+from io import BytesIO
+
 import httpx
 import pytest
+from docx import Document
 from fastapi.testclient import TestClient
 
 from app.config import Settings
@@ -16,6 +19,7 @@ def test_health_reports_loaded_knowledge(client: TestClient) -> None:
     assert payload["status"] == "ok"
     assert payload["knowledge_documents"] >= 10
     assert payload["llm_mode"] == "local-extractive"
+    assert response.headers["x-request-id"]
 
 
 def test_wildcard_cors_is_rejected() -> None:
@@ -28,6 +32,44 @@ def test_chat_validates_input(client: TestClient) -> None:
     assert response.status_code == 422
 
 
+def _resume_docx() -> bytes:
+    document = Document()
+    document.add_heading("Nagendra Mule", level=1)
+    document.add_paragraph("Python and Generative AI Engineer with production FastAPI, LangGraph, RAG, PostgreSQL, and AWS experience.")
+    document.add_paragraph("Designed a grounded incident triage workflow using EventBridge, retrieval, citations, validation, and human review.")
+    output = BytesIO()
+    document.save(output)
+    return output.getvalue()
+
+
+def test_resume_upload_is_protected_and_refreshes_rag(client: TestClient) -> None:
+    initial_count = client.get("/health").json()["knowledge_documents"]
+    files = {"docx": ("Nagendra-Mule-Resume.docx", _resume_docx(), "application/vnd.openxmlformats-officedocument.wordprocessingml.document")}
+    unauthorized = client.post("/api/admin/resume", files=files)
+    assert unauthorized.status_code == 401
+
+    response = client.post("/api/admin/resume", files=files, headers={"X-Resume-Admin-Token": "test-resume-admin-token"})
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["available"] is True
+    assert payload["docx_url"] == "/api/resume/files/docx"
+    assert payload["knowledge_chunks"] >= 1
+    assert client.get("/health").json()["knowledge_documents"] > initial_count
+    download = client.get(payload["docx_url"])
+    assert download.status_code == 200
+    assert "attachment" in download.headers["content-disposition"]
+
+
+def test_resume_upload_rejects_invalid_pdf(client: TestClient) -> None:
+    response = client.post(
+        "/api/admin/resume",
+        files={"pdf": ("resume.pdf", b"not a pdf", "application/pdf")},
+        headers={"X-Resume-Admin-Token": "test-resume-admin-token"},
+    )
+    assert response.status_code == 422
+    assert "valid PDF signature" in response.json()["detail"]
+
+
 def test_chat_returns_grounded_sources(client: TestClient) -> None:
     response = client.post("/api/chat", json={"message": "What has Nagendra built using LangGraph?"})
     assert response.status_code == 200
@@ -36,6 +78,24 @@ def test_chat_returns_grounded_sources(client: TestClient) -> None:
     assert payload["sources"]
     assert any(source["id"].startswith("tag-") for source in payload["sources"])
     assert all("file" not in source for source in payload["sources"])
+
+
+def test_nexusai_mcp_answer_is_grounded_in_project_source(client: TestClient) -> None:
+    response = client.post("/api/chat", json={"message": "How does NexusAI control MCP tool execution?"})
+    assert response.status_code == 200
+    payload = response.json()
+    assert "MCP" in payload["answer"]
+    assert "human approval" in payload["answer"]
+    assert any(source["id"] == "nexusai-agentic-security" for source in payload["sources"])
+
+
+def test_current_role_answer_includes_nexusai_evidence(client: TestClient) -> None:
+    response = client.post("/api/chat", json={"message": "What does Nagendra do at StaidLogic?"})
+    assert response.status_code == 200
+    payload = response.json()
+    assert "NexusAI" in payload["answer"]
+    assert "Hybrid RAG" in payload["answer"]
+    assert any(source["id"] == "experience-staidlogic" for source in payload["sources"])
 
 
 def test_frontend_scope_is_conservative(client: TestClient) -> None:
@@ -56,10 +116,11 @@ def test_database_answer_names_supported_platforms(client: TestClient) -> None:
     assert any(source["id"] == "profile-databases" for source in payload["sources"])
 
 
-def test_genai_projects_answer_leads_with_tag(client: TestClient) -> None:
+def test_genai_projects_answer_includes_nexusai_and_tag(client: TestClient) -> None:
     response = client.post("/api/chat", json={"message": "Which Generative AI projects has he worked on?"})
     assert response.status_code == 200
     payload = response.json()
+    assert "NexusAI" in payload["answer"]
     assert "TAG AI Platform" in payload["answer"]
     assert any(source["id"] == "profile-ai-projects" for source in payload["sources"])
 
@@ -70,6 +131,14 @@ def test_unsupported_question_does_not_invent(client: TestClient) -> None:
     payload = response.json()
     assert "not available" in payload["answer"]
     assert payload["sources"] == []
+
+
+def test_realistic_scenario_is_labeled_as_hypothetical(client: TestClient) -> None:
+    response = client.post("/api/chat", json={"message": "How would Nagendra design a production RAG system?"})
+    assert response.status_code == 200
+    payload = response.json()
+    assert "Grounded hypothetical approach" in payload["answer"]
+    assert payload["sources"]
 
 
 def test_prompt_injection_is_rejected(client: TestClient) -> None:

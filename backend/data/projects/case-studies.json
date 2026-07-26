@@ -1,5 +1,37 @@
 [
   {
+    "id": "nexusai-overview",
+    "label": "NexusAI",
+    "section": "Overview",
+    "url": "/projects/nexusai-enterprise-copilot",
+    "text": "NexusAI is Nagendra's flagship internal enterprise AI platform, developed from October 2023 to the present for HR, Finance, IT, and Operations teams. It provides secure, citation-grounded organizational knowledge access and approval-controlled business workflow automation through asynchronous Python and FastAPI services with Pydantic, AsyncIO, SQLite, and SQLAlchemy persistence.",
+    "metadata": { "category": "project", "project": "NexusAI" }
+  },
+  {
+    "id": "nexusai-rag-architecture",
+    "label": "NexusAI",
+    "section": "Hybrid RAG and Ingestion",
+    "url": "/projects/nexusai-enterprise-copilot",
+    "text": "NexusAI uses a multi-source Hybrid RAG pipeline combining ChromaDB dense vector retrieval, BM25 sparse keyword search, retrieval fusion, deterministic reranking, OCR, and verified citations. Ingestion supports PDFs, scanned documents, DOCX, PPTX, XLSX, web pages, and approved SQL data sources. SharePoint, Google Drive, Confluence, Slack, and Microsoft Teams connectors use incremental synchronization, retry handling, and change tracking.",
+    "metadata": { "category": "architecture", "project": "NexusAI" }
+  },
+  {
+    "id": "nexusai-agentic-security",
+    "label": "NexusAI",
+    "section": "Agentic Workflow and Security",
+    "url": "/projects/nexusai-enterprise-copilot",
+    "text": "A LangGraph supervisor in NexusAI coordinates Research, Planning, Risk Policy, Execution, Verification, and Reporting agents through typed handoffs. Before MCP-based external tool execution, the platform enforces risk classification, human approval, and separation of duties. Security controls include JWT authentication, Argon2 password hashing, multi-tenant RBAC, source and workflow ACLs, prompt-injection detection, PII redaction, and audit logging.",
+    "metadata": { "category": "security", "project": "NexusAI" }
+  },
+  {
+    "id": "nexusai-quality-observability",
+    "label": "NexusAI",
+    "section": "Quality and Observability",
+    "url": "/projects/nexusai-enterprise-copilot",
+    "text": "NexusAI includes React and TypeScript dashboards for knowledge search, workflow approvals, evaluations, security administration, and monitoring. Prometheus and Grafana provide operational instrumentation. Critical workflows were validated with 121 automated backend tests and Playwright browser smoke tests.",
+    "metadata": { "category": "quality", "project": "NexusAI" }
+  },
+  {
     "id": "tag-overview",
     "label": "TAG",
     "section": "Overview",

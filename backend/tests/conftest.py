@@ -14,12 +14,14 @@ from app.main import create_app  # noqa: E402
 
 
 @pytest.fixture
-def client() -> TestClient:
+def client(tmp_path: Path) -> TestClient:
     config = Settings(
         llm_api_key="",
         llm_model="",
         allowed_origins=("http://localhost:3000",),
         chat_rate_limit=100,
+        resume_admin_token="test-resume-admin-token",
+        resume_storage_dir=str(tmp_path / "resume"),
     )
     with TestClient(create_app(config)) as test_client:
         yield test_client

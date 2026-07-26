@@ -21,12 +21,13 @@ export const experience = [
     role: "Python & GenAI Engineer",
     company: "StaidLogic LLC",
     period: "Oct 2023 — Present",
-    summary: "Building enterprise AI platforms and secure cloud-native backend services.",
+    summary: "Building secure enterprise knowledge, agentic workflow, and cloud-native backend platforms.",
     achievements: [
-      "Engineered AI-driven QA workflows with FastAPI, LangChain, and LangGraph, reducing manual QA effort by approximately 60%.",
-      "Designed asynchronous REST and WebSocket services backed by PostgreSQL and SQLAlchemy for long-running agentic workflows and real-time progress.",
-      "Implemented Microsoft SSO, OAuth2, JWT, and role-based access controls for enterprise-grade platform security.",
-      "Delivered serverless AWS services, production monitoring, analytics pipelines, and conversational automation integrations.",
+      "Built NexusAI Hybrid RAG with ChromaDB dense retrieval, BM25 keyword search, reranking, OCR, verified citations, and multi-format enterprise ingestion.",
+      "Implemented a LangGraph supervisor with typed agent handoffs, risk policy, human approval, and separation of duties before MCP tool execution.",
+      "Engineered TAG requirement-to-automation workflows with FastAPI, LangChain, PostgreSQL, and WebSockets, reducing manual QA effort by approximately 60%.",
+      "Applied JWT, Argon2, multi-tenant RBAC, source ACLs, prompt-injection detection, PII redaction, audit logging, Prometheus, and Grafana controls.",
+      "Validated critical NexusAI workflows with 121 automated backend tests and Playwright browser smoke tests.",
     ],
   },
   {
@@ -49,17 +50,4 @@ export const skillGroups: SkillGroup[] = [
   { category: "Additional / familiar", skills: [{ name: "CrewAI" }, { name: "FAISS" }, { name: "ChromaDB" }, { name: "Pinecone", qualifier: "Familiar" }, { name: "Redis" }, { name: "React", qualifier: "Basic" }, { name: "Next.js", qualifier: "Familiar" }, { name: "TypeScript", qualifier: "Basic" }, { name: "JavaScript", qualifier: "Basic" }] },
 ];
 
-export const impact = [
-  { value: "60%", title: "Less manual QA effort", description: "Through AI-powered requirement and test automation workflows." },
-  { value: "04", title: "AWS certifications", description: "Across cloud, AI, data engineering, and solutions architecture." },
-  { value: "Multi-source", title: "AI ingestion", description: "Requirement workflows spanning Jira, VersionOne, Excel, and enterprise documents." },
-  { value: "Enterprise", title: "Security by design", description: "Microsoft SSO, OAuth2/JWT authorization, RBAC, and managed secrets." },
-];
-
 export const certifications = profileConfig.certifications;
-
-export const labProjects = [
-  { repositoryName: "Agentic RAG Platform", status: "Planned", featured: true, description: "A production-minded reference architecture for cited, traceable retrieval and workflow orchestration.", stack: ["Python", "FastAPI", "LangGraph", "RAG", "Vector DB"], githubUrl: null, liveDemoUrl: null },
-  { repositoryName: "AI Requirement Analyzer", status: "Planned", featured: true, description: "A privacy-safe pipeline from requirements through validation, enhancement, and test cases.", stack: ["Python", "FastAPI", "LLM", "RAG"], githubUrl: null, liveDemoUrl: null },
-  { repositoryName: "Production FastAPI Starter", status: "Planned", featured: true, description: "An opinionated service foundation for secure, observable, asynchronous APIs.", stack: ["FastAPI", "Async SQLAlchemy", "PostgreSQL", "JWT/RBAC", "Docker", "Pytest"], githubUrl: null, liveDemoUrl: null },
-];
