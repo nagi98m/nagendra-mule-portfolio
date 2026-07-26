@@ -44,7 +44,7 @@
     "label": "Resume",
     "section": "Generative AI Projects",
     "url": "/#projects",
-    "text": "Nagendra's flagship Generative AI project is the TAG AI Platform, which uses FastAPI, LangChain, and LangGraph to orchestrate requirement analysis and QA artifact generation. His broader applied AI work includes the IVACS voice automation platform using Amazon Lex and Comprehend; the portfolio does not present IVACS as a Generative AI system.",
-    "metadata": { "category": "generative-ai", "project": "TAG" }
+    "text": "Nagendra's flagship enterprise AI project is NexusAI, a secure knowledge and operations copilot using Hybrid RAG, verified citations, LangGraph supervisor orchestration, approval-controlled MCP execution, and enterprise security controls. His TAG AI Platform uses FastAPI, LangChain, and LangGraph to orchestrate requirement analysis and QA artifact generation. His broader applied AI work includes the IVACS voice automation platform using Amazon Lex and Comprehend; the portfolio does not present IVACS as a Generative AI system.",
+    "metadata": { "category": "generative-ai", "project": "NexusAI" }
   }
 ]

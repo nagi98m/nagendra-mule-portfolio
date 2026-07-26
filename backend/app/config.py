@@ -25,6 +25,10 @@ class Settings:
     retrieval_top_k: int = _as_int("RETRIEVAL_TOP_K", 4)
     chat_rate_limit: int = _as_int("CHAT_RATE_LIMIT", 12)
     chat_rate_window_seconds: int = _as_int("CHAT_RATE_WINDOW_SECONDS", 60)
+    resume_admin_token: str = os.getenv("RESUME_ADMIN_TOKEN", "").strip()
+    resume_storage_dir: str = os.getenv("RESUME_STORAGE_DIR", "").strip()
+    resume_max_upload_bytes: int = _as_int("RESUME_MAX_UPLOAD_BYTES", 5 * 1024 * 1024)
+    log_level: str = os.getenv("LOG_LEVEL", "INFO").strip()
 
 
 settings = Settings()

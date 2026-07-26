@@ -34,3 +34,11 @@ class HealthResponse(BaseModel):
     status: str
     knowledge_documents: int
     llm_mode: str
+
+
+class ResumeStatusResponse(BaseModel):
+    available: bool
+    pdf_url: str | None = None
+    docx_url: str | None = None
+    updated_at: str | None = None
+    knowledge_chunks: int = 0

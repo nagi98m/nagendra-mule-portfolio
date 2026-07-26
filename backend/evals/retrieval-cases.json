@@ -1,0 +1,17 @@
+[
+  { "query": "Explain the NexusAI hybrid RAG architecture", "expected_ids": ["nexusai-rag-architecture"] },
+  { "query": "How does NexusAI control MCP tool execution?", "expected_ids": ["nexusai-agentic-security"] },
+  { "query": "Which connectors and document formats does NexusAI support?", "expected_ids": ["nexusai-rag-architecture"] },
+  { "query": "Explain Nagendra's LangGraph experience", "expected_ids": ["tag-rag-agentic", "tag-architecture"] },
+  { "query": "Which databases has Nagendra worked with?", "expected_ids": ["profile-databases"] },
+  { "query": "Describe the AWS Connect Lex Lambda voice platform", "expected_ids": ["ivacs-overview"] },
+  { "query": "What Shopify and GCP e-commerce work has he done?", "expected_ids": ["ecommerce-overview"] },
+  { "query": "Which AWS certifications does Nagendra hold?", "expected_ids": ["certifications-aws"] },
+  { "query": "What does he do at StaidLogic?", "expected_ids": ["experience-staidlogic"] },
+  { "query": "Describe his Signovate Django and GCP experience", "expected_ids": ["experience-signovate"] },
+  { "query": "What enterprise security experience does he have with SSO OAuth2 JWT and RBAC?", "expected_ids": ["security-experience"] },
+  { "query": "What work reduced manual QA effort?", "expected_ids": ["impact-qa", "tag-overview"] },
+  { "query": "Is Nagendra a frontend specialist?", "expected_ids": ["profile-frontend-scope"] },
+  { "query": "What are Nagendra's strongest Python and AI skills?", "expected_ids": ["profile-core-skills", "role-fit"] },
+  { "query": "What is Nagendra's favorite restaurant cuisine?", "expected_ids": [] }
+]
