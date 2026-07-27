@@ -14,12 +14,48 @@ const productionFlow = [
 
 export function Skills() {
   return (
-    <section id="skills" className="section section-soft">
+    <section id="expertise" className="section section-soft">
+      <span id="skills" className="anchor-alias" aria-hidden="true" />
       <div className="container">
-        <Reveal><SectionHeading eyebrow="03 / Technical depth" title="Backend depth. Applied AI delivery." description="A clear hierarchy of primary expertise, production experience, and supporting familiarity—without arbitrary percentages." /></Reveal>
-        <div className="skills-grid">{skillGroups.map((group, index) => <Reveal className="skill-group" delay={(index % 3) * 0.05} key={group.category}><div className="skill-index">{String(index + 1).padStart(2, "0")}</div><h3>{group.category}</h3><div className="tag-row">{group.skills.map((skill) => <span className={`tag ${skill.primary ? "tag-primary" : ""}`} key={skill.name}>{skill.name}{skill.qualifier ? <small>{skill.qualifier}</small> : null}</span>)}</div></Reveal>)}</div>
+        <Reveal>
+          <SectionHeading
+            eyebrow="03 / Technical expertise"
+            title="Backend depth. Applied AI delivery."
+            description="Capabilities are separated into production experience, working experience, and familiarity. Expand any group to see where the tools were applied."
+          />
+        </Reveal>
+        <div className="skill-legend" aria-label="Experience level legend">
+          <span data-level="Production">Production</span>
+          <span data-level="Working">Working</span>
+          <span data-level="Familiar">Familiar</span>
+        </div>
+        <div className="skills-grid">
+          {skillGroups.map((group, index) => (
+            <Reveal className="skill-group" delay={(index % 3) * 0.05} key={group.category}>
+              <div className="skill-index">{String(index + 1).padStart(2, "0")}</div>
+              <h3>{group.category}</h3>
+              <p>{group.summary}</p>
+              <div className="tag-row">
+                {group.skills.map((skill) => (
+                  <span className="tag" data-level={skill.level} key={skill.name}>
+                    {skill.name}<small>{skill.level}</small>
+                  </span>
+                ))}
+              </div>
+              <details className="skill-context">
+                <summary>Practical context</summary>
+                <p>{group.context}</p>
+                <small>Related: {group.relatedProjects.join(" · ")}</small>
+              </details>
+            </Reveal>
+          ))}
+        </div>
         <Reveal className="production-system">
-          <div className="production-system-copy"><p className="eyebrow">Production pattern</p><h3>From request to reliable AI outcome</h3><p>A concise view of how backend, agentic AI, retrieval, data, and cloud delivery connect in production.</p></div>
+          <div className="production-system-copy">
+            <p className="eyebrow">Production pattern</p>
+            <h3>From request to reliable AI outcome</h3>
+            <p>A concise view of how backend, agentic AI, retrieval, data, and cloud delivery connect in production.</p>
+          </div>
           <ArchitectureDiagram steps={productionFlow} title="Production AI system" />
         </Reveal>
       </div>

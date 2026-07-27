@@ -7,7 +7,7 @@ import { ResumeLink } from "@/components/ui/resume-link";
 import { portfolio } from "@/data/portfolio";
 
 const highlights = [
-  { icon: BriefcaseBusiness, value: "4.9+ Years", label: "Production engineering" },
+  { icon: BriefcaseBusiness, value: portfolio.experience, label: "Since November 2021" },
   { icon: Layers3, value: "4 Case Studies", label: "Enterprise AI · voice · cloud" },
   { icon: Cloud, value: "AWS + GCP", label: "4 AWS certifications" },
 ];

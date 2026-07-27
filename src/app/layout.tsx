@@ -26,8 +26,9 @@ export const metadata: Metadata = {
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "Person", name: portfolio.name, jobTitle: portfolio.role, url: siteConfig.url, knowsAbout: ["Python", "FastAPI", "Generative AI", "LangGraph", "RAG", "AWS", "GCP", "PostgreSQL"], sameAs: [portfolio.socials.github, portfolio.socials.linkedin].filter(Boolean) },
-    { "@type": "WebSite", name: `${portfolio.name} Portfolio`, url: siteConfig.url, description: siteConfig.description },
+    { "@type": "Person", "@id": `${siteConfig.url}/#person`, name: portfolio.name, jobTitle: portfolio.role, email: portfolio.socials.email ? `mailto:${portfolio.socials.email}` : undefined, homeLocation: { "@type": "Place", name: portfolio.location }, url: siteConfig.url, knowsAbout: ["Python", "FastAPI", "Generative AI", "LangGraph", "RAG", "Agentic AI", "Voice AI", "AWS", "GCP", "PostgreSQL"], sameAs: [portfolio.socials.github, portfolio.socials.linkedin].filter(Boolean) },
+    { "@type": "ProfilePage", "@id": `${siteConfig.url}/#profile`, name: siteConfig.title, url: siteConfig.url, description: siteConfig.description, mainEntity: { "@id": `${siteConfig.url}/#person` } },
+    { "@type": "WebSite", "@id": `${siteConfig.url}/#website`, name: `${portfolio.name} Portfolio`, url: siteConfig.url, description: siteConfig.description },
   ],
 };
 

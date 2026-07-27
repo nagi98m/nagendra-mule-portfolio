@@ -7,7 +7,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
   const isFlagship = project.featured === true;
   return (
     <article className={`project-card accent-${project.accent} ${isFlagship ? "project-flagship" : ""}`}>
-      <div className="project-topline"><span>0{index + 1} {isFlagship ? "· FLAGSHIP" : ""}</span><span><LockKeyhole size={14} aria-hidden="true" /> Enterprise project · Source code private</span></div>
+      <div className="project-topline"><span>0{index + 1} {isFlagship ? "· FLAGSHIP" : ""}</span><span><LockKeyhole size={14} aria-hidden="true" /> {project.projectType || "Enterprise project"} · Source code private</span></div>
       <div className="project-copy">
         <p className="eyebrow">{project.eyebrow}</p>
         <h3>{project.title}</h3>

@@ -4,14 +4,14 @@
     "label": "Resume",
     "section": "Professional Summary",
     "url": "/#about",
-    "text": "Nagendra Mule is a Python Backend and Generative AI Engineer with 4.9 years of experience delivering production backend systems, Generative AI applications, agentic workflows, cloud architecture, enterprise integrations, and end-to-end software delivery.",
+    "text": "Nagendra Mule is a Python Backend and Generative AI Engineer with professional experience beginning in November 2021, delivering backend systems, Generative AI applications, agentic workflows, cloud architecture, enterprise integrations, and end-to-end software delivery.",
     "metadata": { "category": "summary" }
   },
   {
     "id": "profile-core-skills",
     "label": "Resume",
     "section": "Core Skills",
-    "url": "/#skills",
+    "url": "/#expertise",
     "text": "Nagendra's primary expertise includes Python 3.x, FastAPI, REST APIs, LangGraph, LangChain, retrieval-augmented generation, agentic AI, AWS, and PostgreSQL. His backend experience also includes Django REST Framework, Flask, microservices, WebSockets, and asynchronous SQLAlchemy.",
     "metadata": { "category": "skills" }
   },
@@ -19,7 +19,7 @@
     "id": "profile-cloud-skills",
     "label": "Resume",
     "section": "Cloud Skills",
-    "url": "/#skills",
+    "url": "/#expertise",
     "text": "Nagendra has delivered cloud systems using AWS Lambda, EC2, RDS, S3, Amazon Connect, Amazon Lex, Athena, Glue, CloudWatch, Secrets Manager, DynamoDB, SNS, IAM, CloudFront, and Redshift. His GCP experience includes Cloud Run, App Engine, BigQuery, Cloud SQL, Cloud Storage, Pub/Sub, Dataflow, Cloud Functions, and Compute Engine.",
     "metadata": { "category": "cloud" }
   },
@@ -27,7 +27,7 @@
     "id": "profile-frontend-scope",
     "label": "Resume",
     "section": "Frontend Scope",
-    "url": "/#skills",
+    "url": "/#expertise",
     "text": "Nagendra has basic familiarity with JavaScript, TypeScript, and React, plus supporting familiarity with Next.js. His portfolio positions him primarily as a Python Backend and Generative AI Engineer, not as a frontend specialist.",
     "metadata": { "category": "skills", "level": "additional" }
   },
@@ -35,7 +35,7 @@
     "id": "profile-databases",
     "label": "Resume",
     "section": "Databases and Data Platforms",
-    "url": "/#skills",
+    "url": "/#expertise",
     "text": "Nagendra's database experience includes PostgreSQL, MySQL, Amazon RDS, DynamoDB, Cloud SQL, BigQuery, and Redshift. He has used SQLAlchemy and Async SQLAlchemy for application data access.",
     "metadata": { "category": "databases" }
   },
@@ -46,5 +46,13 @@
     "url": "/#projects",
     "text": "Nagendra's flagship enterprise AI project is NexusAI, a secure knowledge and operations copilot using Hybrid RAG, verified citations, LangGraph supervisor orchestration, approval-controlled MCP execution, and enterprise security controls. His TAG AI Platform uses FastAPI, LangChain, and LangGraph to orchestrate requirement analysis and QA artifact generation. His broader applied AI work includes the IVACS voice automation platform using Amazon Lex and Comprehend; the portfolio does not present IVACS as a Generative AI system.",
     "metadata": { "category": "generative-ai", "project": "NexusAI" }
+  },
+  {
+    "id": "profile-contact",
+    "label": "Portfolio",
+    "section": "Location and Availability",
+    "url": "/#contact",
+    "text": "Nagendra Mule is based in Hyderabad, India and is open to remote Senior Python Backend, Generative AI, Applied AI, Agentic AI, and AI Platform engineering roles. His public contact email is nagireddy.m001@gmail.com.",
+    "metadata": { "category": "contact" }
   }
 ]

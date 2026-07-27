@@ -3,8 +3,16 @@
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ResumeLink } from "@/components/ui/resume-link";
+import { publishedArticles } from "@/data/writing";
 
-const navItems = ["About", "Experience", "Skills", "Projects", "Certifications", "Contact"];
+const navItems = [
+  { label: "Expertise", id: "expertise" },
+  { label: "Projects", id: "projects" },
+  ...(publishedArticles.length ? [{ label: "Writing", id: "writing" }] : []),
+  { label: "Experience", id: "experience" },
+  { label: "Certifications", id: "certifications" },
+  { label: "Contact", id: "contact" },
+];
 
 export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
   const [open, setOpen] = useState(false);
@@ -30,7 +38,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
   }, [open]);
 
   useEffect(() => {
-    const sections = ["home", ...navItems.map((item) => item.toLowerCase())]
+    const sections = ["home", ...navItems.map((item) => item.id)]
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => Boolean(section));
     const observer = new IntersectionObserver(
@@ -55,8 +63,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
         </a>
         <nav className="desktop-nav" aria-label="Primary navigation">
           {navItems.map((item) => {
-            const id = item.toLowerCase();
-            return <a key={item} href={`#${id}`} aria-current={activeSection === id ? "location" : undefined}>{item}</a>;
+            return <a key={item.id} href={`#${item.id}`} aria-current={activeSection === item.id ? "location" : undefined}>{item.label}</a>;
           })}
         </nav>
         <div className="nav-action"><ResumeLink href={resumeUrl} compact /></div>
@@ -70,8 +77,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
           <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile navigation">
             <p>Explore portfolio</p>
             {navItems.map((item) => {
-              const id = item.toLowerCase();
-              return <a key={item} href={`#${id}`} aria-current={activeSection === id ? "location" : undefined} onClick={closeMenu}>{item}</a>;
+              return <a key={item.id} href={`#${item.id}`} aria-current={activeSection === item.id ? "location" : undefined} onClick={closeMenu}>{item.label}</a>;
             })}
             <ResumeLink href={resumeUrl} />
           </nav>

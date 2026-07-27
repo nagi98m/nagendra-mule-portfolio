@@ -14,7 +14,7 @@ export function About() {
   return (
     <section id="about" className="section section-soft">
       <div className="container about-grid">
-        <Reveal><SectionHeading eyebrow="01 / About" title="Engineering AI beyond the prototype." /><p className="about-copy">{portfolio.about}</p><div className="about-statement"><Workflow /><p>My focus is the connective tissue: turning model capability into secure, observable software that teams can operate with confidence.</p></div></Reveal>
+        <Reveal><SectionHeading eyebrow="02 / About" title="Engineering AI beyond the prototype." /><p className="about-copy">{portfolio.about}</p><div className="about-statement"><Workflow /><p>My focus is the connective tissue: turning model capability into secure, observable software that teams can operate with confidence.</p></div></Reveal>
         <div className="pillar-grid">{pillars.map(({ icon: Icon, title, text }, index) => <Reveal className="pillar" delay={index * 0.06} key={title}><Icon aria-hidden="true" /><h3>{title}</h3><p>{text}</p>{index === 0 ? <Network className="pillar-watermark" /> : null}</Reveal>)}</div>
       </div>
     </section>
