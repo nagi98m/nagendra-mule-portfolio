@@ -39,7 +39,7 @@ The assistant is intentionally a focused RAG pipeline rather than a multi-agent 
 
 ```text
 src/
-  app/                     Pages, case studies, SEO, contact API
+  app/                     Pages, case studies, SEO, mailto contact flow
   components/ai/           Chat interface and Ask AI actions
   components/analytics/    Privacy-safe event hooks
   components/sections/     Homepage and Recruiter Quick View
@@ -226,10 +226,67 @@ Run `npm audit --omit=dev` before each release. Current findings and the rejecte
 
 - Approved resume PDF
 - LinkedIn URL
-- Public contact email
 - Four AWS credential verification URLs
-- Final production domain
 - Production backend URL
+
+The public contact email and Hyderabad/remote availability are configured from the approved portfolio brief. `NEXT_PUBLIC_CONTACT_EMAIL` can override the email for a specific build.
+
+## Editing portfolio content
+
+- Identity, public links, location, resume state, and certifications: `src/config/profile.ts`
+- Positioning, experience, and capability groups: `src/data/portfolio.ts`
+- Detailed case studies and architecture/workflow diagrams: `src/data/projects.ts`
+- Industry-to-project mapping: `src/data/industry.ts`
+- Article publication metadata: `src/data/writing.ts`
+- Approved testimonials: `src/data/testimonials.ts`
+
+Unknown links, evaluation values, testimonials, and verification fields must remain `null` or empty. The UI hides unavailable evidence instead of rendering placeholders.
+
+### Adding a project
+
+1. Add a typed project record to `src/data/projects.ts`.
+2. Use a unique lowercase slug and factual summary.
+3. Supply role, constraints, decisions, security, reliability, testing, deployment, and verified impact.
+4. Keep `github`, `demo`, `evaluation`, and `whatIDWouldDoDifferently` null until approved.
+5. Add the route to any relevant industry card and backend knowledge record.
+6. Run lint, type checking, the production build, backend tests, and browser tests.
+
+### Adding an article
+
+1. Write and approve the complete MDX article.
+2. Add its metadata to `src/data/writing.ts`.
+3. Set `published: true` only when summary, publication date, and URL are real.
+4. Add the MDX route or verified external URL.
+
+Unpublished article ideas never appear in navigation or public pages.
+
+### Replacing or adding metrics
+
+Update only the relevant project or impact record after recording evidence in `CLAIMS_VERIFICATION_CHECKLIST.md`. Include the metric scope and measurement context. Never replace withheld values with estimates.
+
+## Vercel deployment
+
+The frontend is a static App Router export and is Vercel-compatible:
+
+1. Import the GitHub repository into Vercel.
+2. Use the repository root and `npm run build`.
+3. Set `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_API_URL` for the production build.
+4. Add optional public profile values only when verified.
+5. Deploy, then set the backend `ALLOWED_ORIGINS` to the exact HTTPS frontend origin.
+6. Run `PRODUCTION_SMOKE_TEST.md`.
+
+The existing Sites packaging command is `npm run build:sites`; it adds the required Worker entrypoint and deployment metadata without changing the application UI.
+
+## Custom-domain setup
+
+1. Purchase or use a domain you control.
+2. Add the domain through the selected frontend host.
+3. Create the DNS records supplied by that host.
+4. Set `NEXT_PUBLIC_SITE_URL` to the final HTTPS origin and rebuild.
+5. Update backend CORS to the exact origin.
+6. Verify canonical, Open Graph, JSON-LD, sitemap, and robots URLs.
+
+See `CONTENT_COMPLETENESS_CHECKLIST.md`, `CLAIMS_VERIFICATION_CHECKLIST.md`, and `docs/PORTFOLIO_BLUEPRINT.md` for the release content boundary.
 
 ## Troubleshooting
 

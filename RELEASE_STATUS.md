@@ -1,16 +1,16 @@
 # Release Status
 
-- **Version:** Portfolio V1
+- **Version:** 2026 Portfolio
 - **GitHub:** `https://github.com/nagi98m/nagendra-mule-portfolio`
-- **Frontend:** Not deployed
-- **Backend:** Not deployed
+- **Frontend:** Deployed at `https://nagendra-mule-ai-engineer-portfolio.nagendra-nani.chatgpt.site`
+- **Backend:** Render target configured; deployment not yet authorized/completed
 - **Resume:** Missing
 - **LinkedIn:** Missing
-- **Public Email:** Missing
-- **LLM Mode:** Local Extractive
-- **Contact Delivery:** Fallback Only
-- **Production Smoke Test:** Not Run
+- **Public Email:** `nagireddy.m001@gmail.com`
+- **LLM Mode:** Local extractive fallback; hosted provider optional after backend deployment
+- **Contact Delivery:** Validated `mailto:` fallback
+- **Production Smoke Test:** Previous frontend release passed; current release pending deployment smoke test
 - **Known Dependency Risks:** Two high-severity Sharp findings and one moderate PostCSS finding remain transitive through the current stable Next.js release. See `DEPENDENCY_SECURITY.md`.
-- **Release Status:** NOT READY FOR PUBLIC SHARING
+- **Release Status:** PUBLIC FRONTEND / AI BACKEND PENDING
 
-Portfolio V1 features are frozen. Until production deployment and smoke validation finish, allowed changes are limited to deployment configuration, bug/security fixes, approved resume/profile updates, verified project links, and factual content corrections.
+The public frontend is safe to share as a portfolio preview. Ask My AI Resume requires the separately hosted FastAPI backend; resume and LinkedIn actions remain hidden until verified assets and URLs are supplied.

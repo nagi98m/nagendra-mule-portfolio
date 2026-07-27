@@ -17,7 +17,7 @@ try {
   page.on("pageerror", (error) => errors.push(error.stack || error.message));
 
   await page.goto(baseUrl, { waitUntil: "networkidle" });
-  await assertVisible(page.getByRole("heading", { name: /Python backend meets production AI/i }));
+  await assertVisible(page.getByRole("heading", { name: /Python Backend & Generative AI Engineer/i }));
   assert.equal(await page.locator('a[href="https://github.com/nagi98m"]').count() > 0, true, "Verified GitHub link is missing");
   const linkedinLinks = page.locator('a[href*="linkedin.com"]');
   if (await linkedinLinks.count()) assert.match(await linkedinLinks.first().getAttribute("href"), /^https:\/\/[^\s]+$/, "Configured LinkedIn URL is invalid");
@@ -29,7 +29,7 @@ try {
   }
   await assertVisible(page.getByRole("heading", { name: "Nagendra Mule", exact: true }));
   await assertVisible(page.getByRole("img", { name: /Abstract AI backend architecture/i }));
-  await assertVisible(page.locator(".hero-profile").getByText("4.9+ years", { exact: true }));
+  await assertVisible(page.locator(".hero-profile").getByText(/since Nov 2021/i));
   await assertVisible(page.getByRole("heading", { name: "Engineering proof in 20 seconds." }));
   await page.locator("#experience").scrollIntoViewIfNeeded();
   await assertVisible(page.getByText(/Built NexusAI Hybrid RAG/i));
@@ -47,7 +47,7 @@ try {
   await page.reload({ waitUntil: "networkidle" });
   await page.waitForTimeout(100);
   assert.ok(await page.evaluate(() => window.scrollY < 5), "Reload should return the portfolio to the starting screen");
-  await assertVisible(page.getByRole("heading", { name: /Python backend meets production AI/i }));
+  await assertVisible(page.getByRole("heading", { name: /Python Backend & Generative AI Engineer/i }));
   const directEmail = page.locator('a[href^="mailto:"]');
   assert.equal(await page.locator('.quick-actions a[href="#contact"]').count() > 0, (await directEmail.count()) > 0, "Quick contact action does not match public-email configuration");
 
@@ -112,8 +112,14 @@ try {
 
   assert.deepEqual(errors, [], `Browser console errors: ${errors.join(" | ")}`);
   await page.goto(`${baseUrl}/#contact`, { waitUntil: "networkidle" });
-  await assertVisible(page.getByRole("heading", { name: "Open to the right engineering opportunity." }));
-  assert.equal(await page.locator(".contact-form").count(), 0, "Unconfigured contact form should not be public");
+  await assertVisible(page.getByRole("heading", { name: "Build reliable AI systems together." }));
+  await assertVisible(page.locator(".contact-form"));
+  await page.getByRole("button", { name: "Prepare email" }).click();
+  await assertVisible(page.getByText(/Complete every field/i));
+  await assertVisible(page.getByRole("textbox", { name: "Name", exact: true }));
+  await assertVisible(page.getByRole("textbox", { name: "Email", exact: true }));
+  await assertVisible(page.getByRole("textbox", { name: "Subject", exact: true }));
+  await assertVisible(page.getByRole("textbox", { name: "Message", exact: true }));
   await assertVisible(page.getByRole("link", { name: "GitHub profile" }));
   await page.screenshot({ path: `${outputDir}/desktop-contact.png` });
 
@@ -123,7 +129,7 @@ try {
   const wide = await browser.newContext({ viewport: { width: 1920, height: 900 } });
   const widePage = await wide.newPage();
   await widePage.goto(baseUrl, { waitUntil: "networkidle" });
-  await widePage.waitForTimeout(350);
+  await widePage.waitForTimeout(800);
   const navbarBox = await widePage.locator(".navbar").boundingBox();
   const heroCopyBox = await widePage.locator(".hero-copy").boundingBox();
   const heroProfileBox = await widePage.locator(".hero-profile").boundingBox();
